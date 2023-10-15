@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+<body>
+
+{%block content%}	
+<center>
+<h1>Welcome, {{ current_user.username }}!</h1> 
+<br>
+
+<div class="changediv">
+<br>
+
+<form action="" method="post">
+    <input type="hidden" name="userid2" value="{{current_user.id}}">
+    <input type="submit" class="text-center shadow-lg p-2 mb-0 bg-body rounded btn btn-dark" value="Change Password" name='changepassword'/>
+</form>
+<br>
+<form action="" method="post">
+	<input type="hidden" name="userid2" value="{{current_user.id}}">
+	<input type="submit" class="text-center shadow-lg p-2 mb-0 bg-body rounded btn btn-dark" value="Delete Profile" name='deleteprofile'/>
+</form>
+</center>
+
+<!-- Modal content 
+<div class="modal-content">
+	<span class="close">&times;</span>
+	<p>Enter New Password</p>
+	<form method="POST"> 
+		<textarea name="textbox"></textarea>
+		<button type="submit" name="submit">Submit</button>
+	</form>
+</div>
+-->
+</div>
+</div>
+
+
+{%endblock content%}
+</body>
+</html>
