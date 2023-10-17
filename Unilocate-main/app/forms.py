@@ -46,3 +46,11 @@ class PasswordForm(FlaskForm):
 	currentpass = PasswordField(label='Enter Current Password', validators=[InputRequired(message="Password required"), DataRequired()]) 
 	newpass = PasswordField(label='Enter New Password', validators=[InputRequired(message="Password required"), Length(min=4, max=32, message="Password must be between 4 and 32 characters"), DataRequired()])
 	submit = SubmitField(label='Submit')
+
+class LostItemForm(FlaskForm):
+	item = PasswordField(label='Name of Lost Item', validators=[InputRequired(message="Item required"), DataRequired()])
+	submit = SubmitField(label='Submit')
+
+class FoundItemForm(FlaskForm):
+	item = PasswordField(label='Name of Found Item', validators=[InputRequired(message="Item required"), DataRequired()])
+	submit = SubmitField(label='Submit')

@@ -10,6 +10,13 @@ Home
         </div>
         <div class="product-device box-shadow d-none d-md-block"></div>
         <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
+        <div class="d-flex justify-content-center">
+            <a href="{{ url_for('lostitem') }}">
+                <input type="button" class="text-center shadow-lg p-2 mb-0 bg-body rounded btn btn-dark" value="I lost an item"/>
+            </a>
+            <a href="{{ url_for('founditem') }}">
+                    <input type="button" class="text-center shadow-lg p-2 mb-0 bg-body rounded btn btn-dark" value="I found an item"/>
+            </a>
+        </div>
     </div>
-    
 {% endblock %}
