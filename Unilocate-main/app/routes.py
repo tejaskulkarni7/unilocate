@@ -1,4 +1,4 @@
-from app.forms import RegistrationForm, LoginForm, SearchForm, PasswordForm
+from app.forms import RegistrationForm, LoginForm, SearchForm, PasswordForm, LostItemForm, FoundItemForm
 from flask import render_template, redirect, url_for, request, flash
 from app import myapp_obj, db
 from flask_wtf.file import FileField, FileAllowed, FileRequired
@@ -104,5 +104,22 @@ def changepassword():
 	return render_template("changepassword.html", form=form)
 
 
+#---------------------------------------------
 
 
+@myapp_obj.route('/lostitem', methods=["GET", "POST"])
+@login_required
+def lostitem():
+	form = LostItemForm()
+	if form.validate_on_submit():	#check if submit is clicked
+		return render_template("home.html", form=form)
+	return render_template("lostitem.html", form=form)
+
+
+@myapp_obj.route('/founditem', methods=["GET", "POST"])
+@login_required
+def founditem():
+	form = FoundItemForm()
+	if form.validate_on_submit():	#check if submit is clicked
+		return render_template("home.html", form=form)
+	return render_template("founditem.html", form=form)
