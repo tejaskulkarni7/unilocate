@@ -123,3 +123,8 @@ def founditem():
 	if form.validate_on_submit():	#check if submit is clicked
 		return render_template("home.html", form=form)
 	return render_template("founditem.html", form=form)
+
+@myapp_obj.route('/infopage', methods=["GET"])
+@login_required
+def infopage():
+	return render_template("infopage.html")
