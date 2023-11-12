@@ -54,9 +54,16 @@ class PasswordForm(FlaskForm):
 	submit = SubmitField(label='Submit')
 
 class LostItemForm(FlaskForm):
-	item = PasswordField(label='Name of Lost Item', validators=[InputRequired(message="Item required"), DataRequired()])
+	item_name = StringField(label='Name of Lost Item', validators=[InputRequired(message="Item name required"), DataRequired()])
+	item_type = StringField(label='Type of Lost Item', validators=[InputRequired(message="Item type required"), DataRequired()])
+	lost_location = StringField(label='Location of Lost Item (Optional)')
+	description = StringField(label='Name of Lost Item', validators=[InputRequired(message="Item description required"), DataRequired()])
 	submit = SubmitField(label='Submit')
 
 class FoundItemForm(FlaskForm):
-	item = PasswordField(label='Name of Found Item', validators=[InputRequired(message="Item required"), DataRequired()])
+	item_name = PasswordField(label='Name of Found Item', validators=[InputRequired(message="Item required"), DataRequired()])
+	item_type = StringField(label='Type of Lost Item', validators=[InputRequired(message="Item type required"), DataRequired()])
+	found_location = StringField(label='Found Location', validators=[InputRequired(message="Found location required"), DataRequired()])
+	current_location = StringField(label='Current Location', validators=[InputRequired(message="Current location required"), DataRequired()])
+	description = StringField(label='Name of Lost Item', validators=[InputRequired(message="Item description required"), DataRequired()])
 	submit = SubmitField(label='Submit')
