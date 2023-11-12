@@ -25,6 +25,8 @@ class RegistrationForm(FlaskForm):
 	email_address=StringField(label='Email', validators=[Email(message="Invalid Email address"), DataRequired()])
 	password1 = PasswordField(label='Password', validators=[InputRequired(message="Password required"), Length(min=4, max=32, message="Password must be between 4 and 32 characters"), DataRequired()])
 	password2 = PasswordField(label='Confirm Password', validators=[InputRequired(message="Password required"), EqualTo('password1', message="Passwords must match"), DataRequired()])
+	school_id = StringField(label='School ID', validators=[InputRequired(message="School ID required"), Length(min=9, max=9, message="ID must have 9 numbers"), DataRequired()])
+	phone_number = StringField(label='Phone Number', validators=[InputRequired(message="Phone number required"), Length(min=10, max=15, message="Phone number must be between 10 and 15 numbers"), DataRequired()])
 	submit = SubmitField(label='Submit')
 
 

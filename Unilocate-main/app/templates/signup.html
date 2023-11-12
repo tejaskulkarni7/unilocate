@@ -33,7 +33,16 @@ Sign Up
 
                       {{ form.password2(class="shadow-lg p-3 mb-2 form-control", placeholder="Confirm Password") }}
                       {{ form.password2.label() }}
-                      <br> <br> <br>
+                      <br> <br>
+                      
+                      {{ form.school_id(class="shadow-lg p-3 mb-2 form-control", placeholder="School ID") }}
+                      {{ form.school_id.label() }}
+                      <br> <br>
+
+                      {{ form.phone_number(class="shadow-lg p-3 mb-2 form-control", placeholder="Phone Number") }}
+                      {{ form.phone_number.label() }}
+                      <br> <br>
+                      <br>
                        
                       <div class="d-flex justify-content-center">
                         {{ form.submit(class="shadow-lg p-2 mb-2 bg-body btn btn-light btn-lg px-5") }}

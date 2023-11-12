@@ -38,7 +38,7 @@ def logoutPage():
 def signupPage():
 	form = RegistrationForm()  #signup form from forms.py
 	if form.validate_on_submit():
-		user_to_create = User(username=form.username.data, email_address=form.email_address.data, password=form.password1.data)	#get data from the form user filled
+		user_to_create = User(username=form.username.data, email_address=form.email_address.data, password=form.password1.data,school_id=form.school_id.data,phone_number=form.phone_number.data)	#get data from the form user filled
 		db.session.add(user_to_create)
 		db.session.commit()	#add it to database
 		login_user(user_to_create)	#login the user if signup is successfull
