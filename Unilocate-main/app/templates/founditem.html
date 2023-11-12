@@ -18,11 +18,21 @@ Lost Item
                   <form method="POST" class="form-register" style="color:white">
                       {{ form.hidden_tag() }}
                       
-                      {{ form.item(type="text", class="shadow-lg p-3 mb-3 form-control", placeholder="Item") }}
-                      {{ form.item.label() }}
+                      {{ form.item_name(type="text", class="shadow-lg p-3 mb-3 form-control", placeholder="Item Name") }}
+                      {{ form.item_name.label() }}
                       <br> <br>
-                    
-                       
+                      {{ form.item_type(type="text", class="shadow-lg p-3 mb-3 form-control", placeholder="Item Type") }}
+                      {{ form.item_type.label() }}
+                      <br> <br>
+                      {{ form.found_location(type="text", class="shadow-lg p-3 mb-3 form-control", placeholder="Found Location") }}
+                      {{ form.found_location.label() }}
+                      <br> <br>
+                      {{ form.current_location(type="text", class="shadow-lg p-3 mb-3 form-control", placeholder="Current Location") }}
+                      {{ form.current_location.label() }}
+                      <br> <br>
+                      {{ form.description(type="text", class="shadow-lg p-3 mb-3 form-control", placeholder="Description") }}
+                      {{ form.description.label() }}
+                      <br> <br>
                       <div class="d-flex justify-content-center">
                         {{ form.submit(class="shadow-lg p-2 mb-3 bg-body btn btn-light btn-lg px-5") }}
                       </div>
