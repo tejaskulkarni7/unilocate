@@ -19,14 +19,18 @@ class RegistrationForm(FlaskForm):
 		email_address = User.query.filter_by(email_address = email_address_to_check.data).first()
 		if email_address:
 			raise ValidationError('Email address already exists! Please try different email.')
+	
+	def validate_student_id(self, student_id_to_check):
+		student_id = User.query.filter_by(student_id = student_id_to_check.data).first()
+		if student_id:
+			raise ValidationError('Student ID already exists!')
 
 	#Form fields with validators to check for empty input, really short or long length, no empty field in the form
 	username = StringField(label='Username', validators=[InputRequired(message="Username required"), Length(min=4, max=32, message="Username must be between 4 and 32 characters"), DataRequired()])
 	email_address=StringField(label='Email', validators=[Email(message="Invalid Email address"), DataRequired()])
 	password1 = PasswordField(label='Password', validators=[InputRequired(message="Password required"), Length(min=4, max=32, message="Password must be between 4 and 32 characters"), DataRequired()])
 	password2 = PasswordField(label='Confirm Password', validators=[InputRequired(message="Password required"), EqualTo('password1', message="Passwords must match"), DataRequired()])
-	school_id = StringField(label='School ID', validators=[InputRequired(message="School ID required"), Length(min=9, max=9, message="ID must have 9 numbers"), DataRequired()])
-	phone_number = StringField(label='Phone Number', validators=[InputRequired(message="Phone number required"), Length(min=10, max=15, message="Phone number must be between 10 and 15 numbers"), DataRequired()])
+	student_id = IntegerField(label='Student ID', validators=[InputRequired(message="ID required"), DataRequired()])
 	submit = SubmitField(label='Submit')
 
 
@@ -50,9 +54,16 @@ class PasswordForm(FlaskForm):
 	submit = SubmitField(label='Submit')
 
 class LostItemForm(FlaskForm):
-	item = PasswordField(label='Name of Lost Item', validators=[InputRequired(message="Item required"), DataRequired()])
+	item_name = StringField(label='Name of Lost Item', validators=[InputRequired(message="Item name required"), DataRequired()])
+	item_type = StringField(label='Type of Lost Item', validators=[InputRequired(message="Item type required"), DataRequired()])
+	lost_location = StringField(label='Location of Lost Item (Optional)')
+	description = StringField(label='Name of Lost Item', validators=[InputRequired(message="Item description required"), DataRequired()])
 	submit = SubmitField(label='Submit')
 
 class FoundItemForm(FlaskForm):
-	item = PasswordField(label='Name of Found Item', validators=[InputRequired(message="Item required"), DataRequired()])
+	item_name = PasswordField(label='Name of Found Item', validators=[InputRequired(message="Item required"), DataRequired()])
+	item_type = StringField(label='Type of Lost Item', validators=[InputRequired(message="Item type required"), DataRequired()])
+	found_location = StringField(label='Found Location', validators=[InputRequired(message="Found location required"), DataRequired()])
+	current_location = StringField(label='Current Location', validators=[InputRequired(message="Current location required"), DataRequired()])
+	description = StringField(label='Name of Lost Item', validators=[InputRequired(message="Item description required"), DataRequired()])
 	submit = SubmitField(label='Submit')

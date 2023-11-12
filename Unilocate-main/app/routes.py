@@ -2,7 +2,7 @@ from app.forms import RegistrationForm, LoginForm, SearchForm, PasswordForm, Los
 from flask import render_template, redirect, url_for, request, flash
 from app import myapp_obj, db
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from app.models import User
+from app.models import User, FoundItem, LostItem
 from flask_login import login_user, logout_user, login_required, current_user
 import os
 @myapp_obj.route("/", methods=['GET', 'POST'])
@@ -38,7 +38,7 @@ def logoutPage():
 def signupPage():
 	form = RegistrationForm()  #signup form from forms.py
 	if form.validate_on_submit():
-		user_to_create = User(username=form.username.data, email_address=form.email_address.data, password=form.password1.data,school_id=form.school_id.data,phone_number=form.phone_number.data)	#get data from the form user filled
+		user_to_create = User(username=form.username.data, email_address=form.email_address.data, student_id = form.student_id.data, password=form.password1.data)	#get data from the form user filled
 		db.session.add(user_to_create)
 		db.session.commit()	#add it to database
 		login_user(user_to_create)	#login the user if signup is successfull
@@ -111,7 +111,10 @@ def changepassword():
 @login_required
 def lostitem():
 	form = LostItemForm()
-	if form.validate_on_submit():	#check if submit is clicked
+	if form.validate_on_submit():	
+		new_lostitem = LostItem(user_id = current_user.id, item_name = form.item_name.data, item_type = form.item_type.data, lost_location = form.lost_location.data, description = form.description.data) #creating a new founditem db object with data
+		db.session.add(new_lostitem)
+		db.session.commit()
 		return render_template("home.html", form=form)
 	return render_template("lostitem.html", form=form)
 
@@ -120,6 +123,14 @@ def lostitem():
 @login_required
 def founditem():
 	form = FoundItemForm()
-	if form.validate_on_submit():	#check if submit is clicked
+	if form.validate_on_submit():	
+		new_founditem = FoundItem(user_id = current_user.id, item_name = form.item_name.data, item_type = form.item_type.data, found_location = form.found_location.data, current_location = form.current_location.data, description = form.description.data) #creating a new founditem db object with data
+		db.session.add(new_founditem)
+		db.session.commit()
 		return render_template("home.html", form=form)
 	return render_template("founditem.html", form=form)
+
+@myapp_obj.route('/infopage', methods=["GET"])
+@login_required
+def infopage():
+	return render_template("infopage.html")

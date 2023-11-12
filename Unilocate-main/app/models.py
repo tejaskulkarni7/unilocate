@@ -1,4 +1,5 @@
 from app import db, bcrypt, login_manager
+from datetime import datetime
 from flask_login import UserMixin
 
 
@@ -12,9 +13,7 @@ class User(db.Model, UserMixin):
 	username = db.Column(db.String(length=30), nullable=False, unique=True)
 	email_address = db.Column(db.String(length=50), nullable=False, unique=True)
 	password_hash = db.Column(db.String(length=60), nullable=False)
-	school_id = db.Column(db.String(length=9), nullable=False)
-	phone_number = db.Column(db.String(length=15), nullable=False) 
-
+	student_id = db.Column(db.Integer(), nullable=False, unique=True)
 
 	@property
 	def password(self):
@@ -32,5 +31,24 @@ class User(db.Model, UserMixin):
 		return f'User {self.username}'
 
 
+class LostItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    item_name = db.Column(db.String(length=100), nullable=False)
+    item_type = db.Column(db.String(length=50), nullable=False)
+    lost_location = db.Column(db.String(length=100), nullable=True)
+    description = db.Column(db.Text, nullable=True)
+    date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    user = db.relationship('User', backref='lost_items')
 
+class FoundItem(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+	item_name = db.Column(db.String(length=100), nullable=False)
+	item_type = db.Column(db.String(length=50), nullable=False)
+	found_location = db.Column(db.String(length=100), nullable=False)
+	current_location = db.Column(db.String(length=100), nullable=False)
+	description = db.Column(db.Text, nullable=True)
+	date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+	user = db.relationship('User', backref='found_items')
 
