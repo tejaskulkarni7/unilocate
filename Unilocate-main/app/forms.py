@@ -57,7 +57,8 @@ class LostItemForm(FlaskForm):
 	item_name = StringField(label='Name of Lost Item', validators=[InputRequired(message="Item name required"), DataRequired()])
 	item_type = StringField(label='Type of Lost Item', validators=[InputRequired(message="Item type required"), DataRequired()])
 	lost_location = StringField(label='Location of Lost Item (Optional)')
-	description = StringField(label='Name of Lost Item', validators=[InputRequired(message="Item description required"), DataRequired()])
+	description = StringField(label='Description of Lost Item', validators=[InputRequired(message="Item description required"), DataRequired()])
+	image = FileField(label='Upload Image', validators=[FileAllowed(['png', 'jpg'])])
 	submit = SubmitField(label='Submit')
 
 class FoundItemForm(FlaskForm):
@@ -66,4 +67,5 @@ class FoundItemForm(FlaskForm):
 	found_location = StringField(label='Found Location', validators=[InputRequired(message="Found location required"), DataRequired()])
 	current_location = StringField(label='Current Location', validators=[InputRequired(message="Current location required"), DataRequired()])
 	description = StringField(label='Name of Lost Item', validators=[InputRequired(message="Item description required"), DataRequired()])
+	image = FileField(label='Upload Image', validators=[FileAllowed(['png', 'jpg'])])
 	submit = SubmitField(label='Submit')
