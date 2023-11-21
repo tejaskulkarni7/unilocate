@@ -40,6 +40,8 @@ class LostItem(db.Model):
     description = db.Column(db.Text, nullable=True)
     date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     user = db.relationship('User', backref='lost_items')
+    image = db.Column(db.String(20), nullable=False, default='default.jpg')
+    filename = db.Column(db.String(length=30), nullable=False)
 
 class FoundItem(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -51,4 +53,6 @@ class FoundItem(db.Model):
 	description = db.Column(db.Text, nullable=True)
 	date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 	user = db.relationship('User', backref='found_items')
+	image = db.Column(db.String(20), nullable=False, default='default.jpg')
+	filename = db.Column(db.String(length=30), nullable=False)
 

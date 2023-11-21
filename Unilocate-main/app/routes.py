@@ -111,10 +111,21 @@ def changepassword():
 @login_required
 def lostitem():
 	form = LostItemForm()
-	if form.validate_on_submit():	
-		new_lostitem = LostItem(user_id = current_user.id, item_name = form.item_name.data, item_type = form.item_type.data, lost_location = form.lost_location.data, description = form.description.data) #creating a new founditem db object with data
+	if form.validate_on_submit():
+		pic = form.image.data 
+		if pic:
+			filename = pic.filename
+			picture_path = os.path.join(myapp_obj.root_path, 'static', filename)
+			pic.save(picture_path)
+			image_data = pic.read()
+		else:
+			filename = None
+			image_data = None	
+
+		new_lostitem = LostItem(user_id = current_user.id, item_name = form.item_name.data, item_type = form.item_type.data, lost_location = form.lost_location.data, description = form.description.data, image = image_data, filename = filename) #creating a new founditem db object with data
 		db.session.add(new_lostitem)
 		db.session.commit()
+		flash("form has been successfully submitted")
 		return render_template("home.html", form=form)
 	return render_template("lostitem.html", form=form)
 
@@ -124,9 +135,19 @@ def lostitem():
 def founditem():
 	form = FoundItemForm()
 	if form.validate_on_submit():	
-		new_founditem = FoundItem(user_id = current_user.id, item_name = form.item_name.data, item_type = form.item_type.data, found_location = form.found_location.data, current_location = form.current_location.data, description = form.description.data) #creating a new founditem db object with data
+		pic = form.image.data 
+		if pic:
+			filename = pic.filename
+			picture_path = os.path.join(myapp_obj.root_path, 'static', filename)
+			pic.save(picture_path)
+			image_data = pic.read()
+		else:
+			filename = None
+			image_data = None
+		new_founditem = FoundItem(user_id = current_user.id, item_name = form.item_name.data, item_type = form.item_type.data, found_location = form.found_location.data, current_location = form.current_location.data, description = form.description.data, image = image_data, filename = filename) #creating a new founditem db object with data
 		db.session.add(new_founditem)
 		db.session.commit()
+		flash("form has been successfully submitted")
 		return render_template("home.html", form=form)
 	return render_template("founditem.html", form=form)
 
