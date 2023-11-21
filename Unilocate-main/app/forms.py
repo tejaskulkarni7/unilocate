@@ -30,7 +30,7 @@ class RegistrationForm(FlaskForm):
 	email_address=StringField(label='Email', validators=[Email(message="Invalid Email address"), DataRequired()])
 	password1 = PasswordField(label='Password', validators=[InputRequired(message="Password required"), Length(min=4, max=32, message="Password must be between 4 and 32 characters"), DataRequired()])
 	password2 = PasswordField(label='Confirm Password', validators=[InputRequired(message="Password required"), EqualTo('password1', message="Passwords must match"), DataRequired()])
-	student_id = IntegerField(label='Student ID', validators=[InputRequired(message="ID required"), DataRequired()])
+	school_id = IntegerField(label='Student ID', validators=[InputRequired(message="ID required"), DataRequired()])
 	submit = SubmitField(label='Submit')
 
 
