@@ -53,6 +53,7 @@ def signupPage():
 
 
 @myapp_obj.route("/profilepage", methods=['GET', 'POST'])
+@login_required
 def profile():
 	if request.method == 'POST':
 		if request.form.get('deleteprofile') == 'Delete Profile': #if the delete profile button is clicked
@@ -67,7 +68,9 @@ def profile():
 		else:
 			None# unknown
 	elif request.method == 'GET':
-		return render_template('profilepage.html', title='My Profile')
+		user_lost_items = LostItem.query.filter_by(user_id=current_user.id).all()
+		user_found_items = FoundItem.query.filter_by(user_id=current_user.id).all()
+		return render_template('profilepage.html', title='My Profile', user_lost_items=user_lost_items, user_found_items=user_found_items)
 
 
 
