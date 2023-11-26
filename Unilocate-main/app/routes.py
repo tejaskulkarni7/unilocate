@@ -65,6 +65,32 @@ def profile():
 			return redirect(url_for('logoutPage')) #flash and redirect
 		if request.form.get('changepassword') == 'Change Password':
 			return redirect(url_for('changepassword'))
+		if request.form.get('resolveissuefound') == 'Issue Resolved':
+			item_to_resolve_id = request.form.get('founditem_id')
+			i1 = FoundItem.query.filter_by(id = item_to_resolve_id).first()
+			iname1 = i1.item_name
+			if i1:
+				i1.resolved = True  # Update 'resolved' attribute to True
+				db.session.commit()
+				flash(f"Issue resolved for item {iname1}!", category='success')
+				return redirect(url_for('profile'))
+			else:
+				flash("Item not found or unable to resolve issue.", category='error')
+				return redirect(url_for('profile'))
+		else:
+			None# unknown
+		if request.form.get('resolveissuelost') == 'Issue Resolved':
+			item_to_resolve_id2 = request.form.get('lostitem_id')
+			i2 = LostItem.query.filter_by(id = item_to_resolve_id2).first()
+			iname2 = i2.item_name
+			if i2:
+				i2.resolved = True  # Update 'resolved' attribute to True
+				db.session.commit()
+				flash(f"Issue resolved for item {iname2}!", category='success')
+				return redirect(url_for('profile'))
+			else:
+				flash("Item not found or unable to resolve issue.", category='error')
+				return redirect(url_for('profile'))
 		else:
 			None# unknown
 	elif request.method == 'GET':
@@ -125,7 +151,7 @@ def lostitem():
 			filename = None
 			image_data = None	
 
-		new_lostitem = LostItem(user_id = current_user.id, item_name = form.item_name.data, item_type = form.item_type.data, lost_location = form.lost_location.data, description = form.description.data, image = image_data, filename = filename) #creating a new founditem db object with data
+		new_lostitem = LostItem(user_id = current_user.id, item_name = form.item_name.data, item_type = form.item_type.data, lost_location = form.lost_location.data, description = form.description.data, image = image_data, filename = filename, resolved = False) #creating a new founditem db object with data
 		db.session.add(new_lostitem)
 		db.session.commit()
 		flash("form has been successfully submitted")
@@ -147,7 +173,7 @@ def founditem():
 		else:
 			filename = None
 			image_data = None
-		new_founditem = FoundItem(user_id = current_user.id, item_name = form.item_name.data, item_type = form.item_type.data, found_location = form.found_location.data, current_location = form.current_location.data, description = form.description.data, image = image_data, filename = filename) #creating a new founditem db object with data
+		new_founditem = FoundItem(user_id = current_user.id, item_name = form.item_name.data, item_type = form.item_type.data, found_location = form.found_location.data, current_location = form.current_location.data, description = form.description.data, image = image_data, filename = filename, resolved = False) #creating a new founditem db object with data
 		db.session.add(new_founditem)
 		db.session.commit()
 		flash("form has been successfully submitted")
