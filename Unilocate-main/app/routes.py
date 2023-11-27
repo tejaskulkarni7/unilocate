@@ -115,8 +115,8 @@ def search():
 	item_searched = request.form.get('searched')
 
 	
-	lostsearcheditems = db.session.query(LostItem.item_name, LostItem.id, LostItem.item_type, LostItem.lost_location, LostItem.description, LostItem.date, LostItem.image, LostItem.filename).filter(LostItem.item_name.like('%' + item_searched + '%')).all()
-	foundsearcheditems = db.session.query(FoundItem.item_name, FoundItem.id, FoundItem.item_type, FoundItem.found_location, FoundItem.current_location, FoundItem.description, FoundItem.image, FoundItem.date, FoundItem.filename).filter(FoundItem.item_name.like('%' + item_searched + '%')).all()
+	lostsearcheditems = db.session.query(LostItem.item_name, LostItem.id, LostItem.item_type, LostItem.lost_location, LostItem.description, LostItem.date, LostItem.image, LostItem.filename).filter(LostItem.item_name.like('%' + item_searched + '%'), LostItem.resolved == False).all()
+	foundsearcheditems = db.session.query(FoundItem.item_name, FoundItem.id, FoundItem.item_type, FoundItem.found_location, FoundItem.current_location, FoundItem.description, FoundItem.image, FoundItem.date, FoundItem.filename).filter(FoundItem.item_name.like('%' + item_searched + '%'), FoundItem.resolved == False).all()
 	
 	return render_template("search.html", form=form, item_searched = item_searched, foundsearcheditems = foundsearcheditems, lostsearcheditems = lostsearcheditems)
 
