@@ -3,7 +3,7 @@
 
 {%block content%}	
 <br>
-<h2>You Searched For... {{ item_searched }}</h2>
+<h2 style="margin-left: 20px">You Searched For... {{ item_searched }}</h2>
 <center>
 
 <!-- Display lost items-->
@@ -47,7 +47,7 @@
 								<div>
 									<img src="{{ url_for('static', filename=lost_item.filename) }}" alt="Lost Item Image" style="width: 250px; height: 250px">
 								</div>
-								<div style="margin-left: 20px">
+								<div style="margin-left: 20px; text-align: left">
 									<p>Item Type: {{ lost_item.item_type }}</p>
 									<p>Lost Location: {{ lost_item.lost_location }}</p>
 									<p>Description: {{ lost_item.description }}</p>
@@ -57,12 +57,6 @@
 							<div class="w-100"></div>
                         </div>
                         <div class="modal-footer">
-                            <div>
-								<form action="" method="post">
-									<input type="hidden" name="lostitem_id" value="{{ lost_item.id }}">
-									<input type="submit" class="text-center shadow-lg p-2 mb-0 bg-body rounded btn btn-dark" style="background-color: #2c74d3; border-color: transparent" value="Issue Resolved" name='resolveissuelost'/>
-								</form>
-							</div>
                         </div>
                     </div>
                 </div>
@@ -113,7 +107,7 @@
 								<div>
 									<img src="{{ url_for('static', filename=found_item.filename) }}" alt="Found Item Image" style="width: 250px; height: 250px">
 								</div>
-								<div style="margin-left: 20px">
+								<div style="margin-left: 20px; text-align: left">
 									<p>Item Type: {{ found_item.item_type }}</p>
 									<p>Found Location: {{ found_item.found_location }}</p>
 									<p>Current Location: {{ found_item.current_location }}</p>
@@ -124,12 +118,6 @@
 							<div class="w-100"></div>
                         </div>
                         <div class="modal-footer">
-                            <div>
-								<form action="" method="post">
-									<input type="hidden" name="founditem_id" value="{{ found_item.id }}">
-									<input type="submit" class="text-center shadow-lg p-2 mb-0 bg-body rounded btn btn-dark" style="background-color: #2c74d3; border-color: transparent" value="Issue Resolved" name='resolveissuefound'/>
-								</form>
-							</div>
                         </div>
                     </div>
                 </div>
