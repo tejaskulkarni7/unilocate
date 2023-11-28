@@ -19,11 +19,11 @@ class RegistrationForm(FlaskForm):
 		email_address = User.query.filter_by(email_address = email_address_to_check.data).first()
 		if email_address:
 			raise ValidationError('Email address already exists! Please try different email.')
-	
-	def validate_student_id(self, student_id_to_check):
-		student_id = User.query.filter_by(student_id = student_id_to_check.data).first()
-		if student_id:
-			raise ValidationError('Student ID already exists!')
+	#function to check if school id already exists
+	def validate_school_id(self, school_id_to_check):
+		school_id = User.query.filter_by(school_id = school_id_to_check.data).first()
+		if school_id:
+			raise ValidationError('School ID already exists!')
 
 	#Form fields with validators to check for empty input, really short or long length, no empty field in the form
 	username = StringField(label='Username', validators=[InputRequired(message="Username required"), Length(min=4, max=32, message="Username must be between 4 and 32 characters"), DataRequired()])
