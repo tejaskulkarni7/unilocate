@@ -1,37 +1,51 @@
 {% extends 'base.html'%}
 <body>
 
-{%block content%}	
+
+{%block content%}  
 <br>
 <h2 style="margin-left: 20px">You Searched For... {{ item_searched }}</h2>
+
+
+<form method="post" action="{{ url_for('search') }}" style="margin-left: 20px">
+    {{ form.hidden_tag() }}
+    {{ form.searched.label }} {{ form.searched() }}
+    {{ form.filter_by.label }} {{ form.filter_by() }}
+    {{ form.submit() }}
+</form>
+
+
 <center>
+
 
 <!-- Display lost items-->
 <ul style="list-style-type:none; display: flex; flex-wrap: wrap;">
-	{% for lost_item in lostsearcheditems %}
-	<div style="
-		border-style: solid; 
-		border-color: #646464; 
-		border-radius: 5px;
-		background-color: white; 
-		width: 250px; 
-		height: 350px;
-		margin-right: 10px;
-		">
-	  <li> 
-		 <div class="lost-and-date" style="display:flex; padding: 10px">
-			<div style="background-color: #e68592; padding: 5px; margin-left: 10px">Lost </div>
-			<div style="margin-left: 100px"> {{ lost_item.date.strftime('%Y-%m-%d') }}</div>
-		 </div>
+    {% for lost_item in lostsearcheditems %}
+    <div style="
+        border-style: solid;
+        border-color: #646464;
+        border-radius: 5px;
+        background-color: white;
+        width: 250px;
+        height: 350px;
+        margin-right: 10px;
+        ">
+      <li>
+         <div class="lost-and-date" style="display:flex; padding: 10px">
+            <div style="background-color: #e68592; padding: 5px; margin-left: 10px">Lost </div>
+            <div style="margin-left: 100px"> {{ lost_item.date.strftime('%Y-%m-%d') }}</div>
+         </div>
 
-		  <div class="img-container" style="display: flex; justify-content: center; align-items: center; height: 200px;">
-			<img src="{{ url_for('static', filename=lost_item.filename) }}" alt="Lost Item Image" style="width: 200px; height: 200px">
-		  </div>
 
-		  <div style="text-align: center; margin-top: 20px">
-		  	<a class="details-button" href="#" data-toggle="modal" data-target="#detailsModal{{ lost_item.id }}"
-			  style="color: black; background-color: white; padding: 5px 10px; border: 1px solid gray;box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.3)">Details</a>
-		  </div>
+          <div class="img-container" style="display: flex; justify-content: center; align-items: center; height: 200px;">
+            <img src="{{ url_for('static', filename=lost_item.filename) }}" alt="Lost Item Image" style="width: 200px; height: 200px">
+          </div>
+
+
+          <div style="text-align: center; margin-top: 20px">
+            <a class="details-button" href="#" data-toggle="modal" data-target="#detailsModal{{ lost_item.id }}"
+              style="color: black; background-color: white; padding: 5px 10px; border: 1px solid gray;box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.3)">Details</a>
+          </div>
             <!-- Modal -->
             <div class="modal fade" id="detailsModal{{ lost_item.id }}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -43,19 +57,19 @@
                             </button>
                         </div>
                         <div class="modal-body" >
-							<div style="display: flex">
-								<div>
-									<img src="{{ url_for('static', filename=lost_item.filename) }}" alt="Lost Item Image" style="width: 250px; height: 250px">
-								</div>
-								<div style="margin-left: 20px; text-align: left">
-									<p>Item Type: {{ lost_item.item_type }}</p>
-									<p>Lost Location: {{ lost_item.lost_location }}</p>
-									<p>Description: {{ lost_item.description }}</p>
-									<p>Date Posted: {{ lost_item.date.strftime('%Y-%m-%d') }}</p>
-									<p>Contact Info: {{ lost_item.email_address}}</p>
-								</div>
-							</div>
-							<div class="w-100"></div>
+                            <div style="display: flex">
+                                <div>
+                                    <img src="{{ url_for('static', filename=lost_item.filename) }}" alt="Lost Item Image" style="width: 250px; height: 250px">
+                                </div>
+                                <div style="margin-left: 20px; text-align: left">
+                                    <p>Item Type: {{ lost_item.item_type }}</p>
+                                    <p>Lost Location: {{ lost_item.lost_location }}</p>
+                                    <p>Description: {{ lost_item.description }}</p>
+                                    <p>Date Posted: {{ lost_item.date.strftime('%Y-%m-%d') }}</p>
+                                    <p>Contact Info: {{ lost_item.email_address}}</p>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
                         </div>
                         <div class="modal-footer">
                         </div>
@@ -63,36 +77,40 @@
                 </div>
             </div>
 
-	  </li>
-	</div>
-	  
-	{% endfor %}
 
-	<!-- Display found items-->
-	{% for found_item in foundsearcheditems %}
-	<div style="
-		border-style: solid; 
-		border-color: #646464; 
-		border-radius: 5px;
-		background-color: white; 
-		width: 250px; 
-		height: 350px;
-		margin-right: 10px;
-		">
-	  <li> 
-		 <div class="found-and-date" style="display:flex; padding: 10px">
-			<div style="background-color: #3ec171; padding: 5px; margin-left: 10px">Found </div>
-			<div style="margin-left: 90px"> {{ found_item.date.strftime('%Y-%m-%d') }}</div>
-		 </div>
+      </li>
+    </div>
+     
+    {% endfor %}
 
-		  <div class="img-container" style="display: flex; justify-content: center; align-items: center; height: 200px;">
-			<img src="{{ url_for('static', filename=found_item.filename) }}" alt="Found Item Image" style="width: 200px; height: 200px">
-		  </div>
 
-		  <div style="text-align: center; margin-top: 20px">
-		  	<a class="details-button" href="#" data-toggle="modal" data-target="#detailsModal2{{ found_item.id }}"
-			  style="color: black; background-color: white; padding: 5px 10px; border: 1px solid gray;box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.3)">Details</a>
-		  </div>
+    <!-- Display found items-->
+    {% for found_item in foundsearcheditems %}
+    <div style="
+        border-style: solid;
+        border-color: #646464;
+        border-radius: 5px;
+        background-color: white;
+        width: 250px;
+        height: 350px;
+        margin-right: 10px;
+        ">
+      <li>
+         <div class="found-and-date" style="display:flex; padding: 10px">
+            <div style="background-color: #3ec171; padding: 5px; margin-left: 10px">Found </div>
+            <div style="margin-left: 90px"> {{ found_item.date.strftime('%Y-%m-%d') }}</div>
+         </div>
+
+
+          <div class="img-container" style="display: flex; justify-content: center; align-items: center; height: 200px;">
+            <img src="{{ url_for('static', filename=found_item.filename) }}" alt="Found Item Image" style="width: 200px; height: 200px">
+          </div>
+
+
+          <div style="text-align: center; margin-top: 20px">
+            <a class="details-button" href="#" data-toggle="modal" data-target="#detailsModal2{{ found_item.id }}"
+              style="color: black; background-color: white; padding: 5px 10px; border: 1px solid gray;box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.3)">Details</a>
+          </div>
             <!-- Modal -->
             <div class="modal fade" id="detailsModal2{{ found_item.id }}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -104,20 +122,20 @@
                             </button>
                         </div>
                         <div class="modal-body" >
-							<div style="display: flex">
-								<div>
-									<img src="{{ url_for('static', filename=found_item.filename) }}" alt="Found Item Image" style="width: 250px; height: 250px">
-								</div>
-								<div style="margin-left: 20px; text-align: left">
-									<p>Item Type: {{ found_item.item_type }}</p>
-									<p>Found Location: {{ found_item.found_location }}</p>
-									<p>Current Location: {{ found_item.current_location }}</p>
-									<p>Description: {{ found_item.description }}</p>
-									<p>Date Posted: {{ found_item.date.strftime('%Y-%m-%d') }}</p>
-									<p>Contact Info: {{ found_item.email_address}}</p>
-								</div>
-							</div>
-							<div class="w-100"></div>
+                            <div style="display: flex">
+                                <div>
+                                    <img src="{{ url_for('static', filename=found_item.filename) }}" alt="Found Item Image" style="width: 250px; height: 250px">
+                                </div>
+                                <div style="margin-left: 20px; text-align: left">
+                                    <p>Item Type: {{ found_item.item_type }}</p>
+                                    <p>Found Location: {{ found_item.found_location }}</p>
+                                    <p>Current Location: {{ found_item.current_location }}</p>
+                                    <p>Description: {{ found_item.description }}</p>
+                                    <p>Date Posted: {{ found_item.date.strftime('%Y-%m-%d') }}</p>
+                                    <p>Contact Info: {{ found_item.email_address}}</p>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
                         </div>
                         <div class="modal-footer">
                         </div>
@@ -125,11 +143,14 @@
                 </div>
             </div>
 
-	  </li>
-	</div>
-	  
-	{% endfor %}
+
+      </li>
+    </div>
+     
+    {% endfor %}
 </ul>
+
+
 
 
 {%endblock content%}
