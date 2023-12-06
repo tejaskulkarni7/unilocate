@@ -1,6 +1,7 @@
 from app.forms import RegistrationForm, LoginForm, SearchForm, PasswordForm, LostItemForm, FoundItemForm
 from flask import render_template, redirect, url_for, request, flash
 from app import myapp_obj, db
+from sqlalchemy import or_
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from app.models import User, FoundItem, LostItem
 from flask_login import login_user, logout_user, login_required, current_user
@@ -129,19 +130,23 @@ def search():
     foundsearcheditems = FoundItem.query
     item_searched = request.form.get('searched')
     filter_by = request.form.get('filter_by', 'all')
-
-
-   
+    
     if filter_by == 'all':
-        lostsearcheditems = lostsearcheditems.filter(LostItem.item_name.like('%' + item_searched + '%'), LostItem.resolved == False).all()
-        foundsearcheditems = foundsearcheditems.filter(FoundItem.item_name.like('%' + item_searched + '%'), FoundItem.resolved == False).all()
+        lostsearcheditems = lostsearcheditems.filter(or_(LostItem.item_name.like('%' + item_searched + '%'), LostItem.description.like('%' + item_searched + '%')), LostItem.resolved == False).all()
+        foundsearcheditems = foundsearcheditems.filter(or_(FoundItem.item_name.like('%' + item_searched + '%'), FoundItem.description.like('%' + item_searched + '%')), FoundItem.resolved == False).all()
     elif filter_by == 'lost':
         lostsearcheditems = lostsearcheditems.filter(LostItem.item_name.like('%' + item_searched + '%'), LostItem.resolved == False).all()
         foundsearcheditems = []
     elif filter_by == 'found':
         lostsearcheditems = []
         foundsearcheditems = foundsearcheditems.filter(FoundItem.item_name.like('%' + item_searched + '%'), FoundItem.resolved == False).all()
-       
+    elif filter_by == 'oldest':
+        lostsearcheditems = lostsearcheditems.filter(or_(LostItem.item_name.like('%' + item_searched + '%'), LostItem.description.like('%' + item_searched + '%')), LostItem.resolved == False).order_by(LostItem.date.asc()).all()
+        foundsearcheditems = foundsearcheditems.filter(or_(FoundItem.item_name.like('%' + item_searched + '%'), FoundItem.description.like('%' + item_searched + '%')), FoundItem.resolved == False).order_by(FoundItem.date.asc()).all()
+    elif filter_by == 'newest':
+        lostsearcheditems = lostsearcheditems.filter(or_(LostItem.item_name.like('%' + item_searched + '%'), LostItem.description.like('%' + item_searched + '%')), LostItem.resolved == False).order_by(LostItem.date.desc()).all()
+        foundsearcheditems = foundsearcheditems.filter(or_(FoundItem.item_name.like('%' + item_searched + '%'), FoundItem.description.like('%' + item_searched + '%')), FoundItem.resolved == False).order_by(FoundItem.date.desc()).all()
+    
     return render_template("search.html", form=form, item_searched = item_searched, foundsearcheditems = foundsearcheditems, lostsearcheditems = lostsearcheditems)
 
 

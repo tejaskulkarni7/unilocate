@@ -51,7 +51,7 @@ class LoginForm(FlaskForm):
 #Searching form
 class SearchForm(FlaskForm):
     searched = StringField('Searched', validators=[DataRequired()])
-    filter_by = SelectField('Filter By', choices=[('all', 'All'), ('lost', 'Lost'), ('found', 'Found')], default='all')
+    filter_by = SelectField('Filter By', choices=[('all', 'All'), ('lost', 'Lost'), ('found', 'Found'), ('oldest', 'Oldest'), ('newest', 'Newest')], default='all')
     submit = SubmitField('Submit')                  #Submit button for searching
 
 

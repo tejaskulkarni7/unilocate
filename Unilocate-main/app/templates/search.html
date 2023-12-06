@@ -6,12 +6,20 @@
 <br>
 <h2 style="margin-left: 20px">You Searched For... {{ item_searched }}</h2>
 
-
-<form method="post" action="{{ url_for('search') }}" style="margin-left: 20px">
+<!-- Filter By -->
+<form method="post" action="{{ url_for('search') }}" class="form-inline" style="margin-left: 20px; margin-bottom: 20px;">
     {{ form.hidden_tag() }}
-    {{ form.searched.label }} {{ form.searched() }}
-    {{ form.filter_by.label }} {{ form.filter_by() }}
-    {{ form.submit() }}
+    <div class="form-group mr-2">
+        {{ form.searched.label }} 
+        {{ form.searched(class="form-control rounded", style="width: 150px; height: 30px;") }}
+    </div>
+    
+    <div class="form-group mr-2">
+        {{ form.filter_by.label }} 
+        {{ form.filter_by(class="form-control rounded", style="width: 150px; height: 30px;") }}
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
 </form>
 
 
@@ -98,7 +106,7 @@
       <li>
          <div class="found-and-date" style="display:flex; padding: 10px">
             <div style="background-color: #3ec171; padding: 5px; margin-left: 10px">Found </div>
-            <div style="margin-left: 90px"> {{ found_item.date.strftime('%Y-%m-%d') }}</div>
+            <div style="margin-left: 85px"> {{ found_item.date.strftime('%Y-%m-%d') }}</div>
          </div>
 
 
