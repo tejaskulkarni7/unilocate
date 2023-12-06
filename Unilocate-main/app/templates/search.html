@@ -74,7 +74,7 @@
                                     <p>Lost Location: {{ lost_item.lost_location }}</p>
                                     <p>Description: {{ lost_item.description }}</p>
                                     <p>Date Posted: {{ lost_item.date.strftime('%Y-%m-%d') }}</p>
-                                    <p>Contact Info: {{ lost_item.email_address}}</p>
+                                    <p>Contact Info: {{ lost_item.user.email_address}}</p>
                                 </div>
                             </div>
                             <div class="w-100"></div>
@@ -140,7 +140,7 @@
                                     <p>Current Location: {{ found_item.current_location }}</p>
                                     <p>Description: {{ found_item.description }}</p>
                                     <p>Date Posted: {{ found_item.date.strftime('%Y-%m-%d') }}</p>
-                                    <p>Contact Info: {{ found_item.email_address}}</p>
+                                    <p>Contact Info: {{ found_item.user.email_address}}</p>
                                 </div>
                             </div>
                             <div class="w-100"></div>
