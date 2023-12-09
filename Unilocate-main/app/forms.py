@@ -1,7 +1,7 @@
 import email
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import StringField, PasswordField, SubmitField, DecimalField, IntegerField, FileField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, DecimalField, IntegerField, FileField, SelectField, TextAreaField
 from wtforms.validators import InputRequired, Length, EqualTo, ValidationError, DataRequired, Email
 from app.models import User
 
@@ -81,3 +81,8 @@ class FoundItemForm(FlaskForm):
 	description = StringField(label='Description of Found Item', validators=[InputRequired(message="Item description required"), DataRequired()])
 	image = FileField(label='Upload Image', validators=[FileAllowed(['png', 'jpg'])])
 	submit = SubmitField(label='Submit')
+
+class FeedbackForm(FlaskForm):
+
+    feedback = TextAreaField('Feedback', validators=[DataRequired(message="Feedback is required")])
+    submit = SubmitField(label='Submit')

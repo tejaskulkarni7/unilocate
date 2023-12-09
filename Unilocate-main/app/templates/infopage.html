@@ -11,7 +11,23 @@ Info Page
             <p class="lead">If you have lost an item, please search for you item using the search bar above, if it is not there, you can create a lost item form</p>
             <p class="lead">If you have found an item, please search for you item using the search bar above, if it is not there, you can create a found item form</p>
             <p class="lead">On campus lost and founds are located at the campus police office, student union, and resident housing office</p>
-            
+            <br> <br> 
+            <br> <br> 
+            <h4 class="shadow-lg p-3 mb-5 bg-body rounded" class="text-uppercase text-center mb-5">Feedback Form</h4>
+
+                  <form method="POST" class="form-register" style="color:white" enctype="multipart/form-data">
+                      {{ form.hidden_tag() }}
+                      
+                      {{ form.feedback(type="text", class="shadow-lg p-3 mb-3 form-control", placeholder="Feedback") }}
+                      {{ form.feedback.label() }}
+                      <br> <br>                   
+                      <div class="d-flex justify-content-center">
+                        {{ form.submit(class="shadow-lg p-2 mb-3 bg-body btn btn-light btn-lg px-5") }}
+                      </div>
+                      <br>
+
+                  </form>
+
         </div>
         <div class="product-device box-shadow d-none d-md-block"></div>
         <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
