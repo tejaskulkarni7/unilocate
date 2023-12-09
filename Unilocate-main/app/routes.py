@@ -1,4 +1,4 @@
-from app.forms import RegistrationForm, LoginForm, SearchForm, PasswordForm, LostItemForm, FoundItemForm
+from app.forms import RegistrationForm, LoginForm, SearchForm, PasswordForm, LostItemForm, FoundItemForm, FeedbackForm
 from flask import render_template, redirect, url_for, request, flash
 from app import myapp_obj, db
 from sqlalchemy import or_
@@ -32,11 +32,6 @@ def logoutPage():
     return redirect(url_for("home"))
 
 
-
-
-
-
-   
 
 
 
@@ -229,7 +224,11 @@ def founditem():
     return render_template("founditem.html", form=form)
 
 
-@myapp_obj.route('/infopage', methods=["GET"])
+@myapp_obj.route('/infopage', methods=["GET", "POST"])
 @login_required
 def infopage():
-    return render_template("infopage.html")
+    form = FeedbackForm()
+    if form.validate_on_submit():
+        flash("Feedback recieved!")
+        return render_template("home.html", form=form)
+    return render_template("infopage.html", form=form)
