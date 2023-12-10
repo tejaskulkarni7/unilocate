@@ -229,6 +229,6 @@ def founditem():
 def infopage():
     form = FeedbackForm()
     if form.validate_on_submit():
-        flash("Feedback recieved!")
+        flash("Feedback received!")
         return render_template("home.html", form=form)
     return render_template("infopage.html", form=form)
